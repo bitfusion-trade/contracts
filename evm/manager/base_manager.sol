@@ -16,7 +16,7 @@ abstract contract BaseManager is Ownable {
     }
 
     mapping(address => bool) private whitelist;
-    mapping(TokenType => IERC20) private tokens;
+    mapping(TokenType => IERC20) internal tokens;
 
     constructor(
         address _pool,
