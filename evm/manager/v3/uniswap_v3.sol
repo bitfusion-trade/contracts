@@ -2,10 +2,10 @@
 pragma solidity ^0.8.25;
 
 import "https://github.com/bitfusion-trade/contracts/evm/manager/base_manager.sol";
-import "@pancakeswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
-import "@pancakeswap/v3-core/contracts/interfaces/IPancakeV3Pool.sol";
+import "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
+import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 
-contract PancakeV3Manager is BaseManager {
+contract UniswapV3Manager is BaseManager {
     ISwapRouter public immutable swapRouter;
     uint24 public poolFee;
 
@@ -16,7 +16,7 @@ contract PancakeV3Manager is BaseManager {
         address _wrappedNative
     ) BaseManager(_pool, _baseTokenMark, _wrappedNative) {
         swapRouter = ISwapRouter(_swapRouter);
-        poolFee = IPancakeV3Pool(_pool).fee();
+        poolFee = IUniswapV3Pool(_pool).fee();
     }
 
     function fetchTokensFromPool(address _pool)
@@ -25,8 +25,8 @@ contract PancakeV3Manager is BaseManager {
         override
         returns (address _token0, address _token1)
     {
-        _token0 = IPancakeV3Pool(_pool).token0();
-        _token1 = IPancakeV3Pool(_pool).token1();
+        _token0 = IUniswapV3Pool(_pool).token0();
+        _token1 = IUniswapV3Pool(_pool).token1();
     }
 
     function tradeV3(
